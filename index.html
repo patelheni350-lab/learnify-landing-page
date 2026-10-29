@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learnify — Your Learning Journey Starts Here</title>
+  <style>
+    :root {
+      --purple: #6842df;
+      --purple-dark: #5030c7;
+      --navy: #171b4b;
+      --muted: #5e6380;
+      --lavender: #f3f1ff;
+      --border: #e1e4f2;
+      --white: #ffffff;
+      --green: #36b99a;
+      --yellow: #f5bd45;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1200px, 90%); margin: 0 auto; }
+    .navbar {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: #fff;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+      white-space: nowrap;
+    }
+    .brand-mark { color: var(--purple); font-size: 34px; line-height: 1; }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-links a { font-size: 14px; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--purple); }
+    .nav-actions { display: flex; align-items: center; gap: 22px; }
+    .login { color: var(--purple); font-weight: 600; font-size: 14px; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--purple);
+      border-radius: 999px;
+      padding: 12px 27px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #fff; background: var(--purple); }
+    .btn-primary:hover { background: var(--purple-dark); }
+    .btn-outline { color: var(--purple); background: transparent; }
+    .btn-small { padding: 9px 22px; font-size: 14px; }
+    .menu-toggle { display: none; border: 0; background: transparent; color: var(--navy); font-size: 27px; }
+
+    .hero { background: linear-gradient(110deg, #f4f2ff, #f7f6ff); padding: 48px 0 42px; overflow: hidden; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1.12fr; align-items: center; gap: 34px; }
+    .eyebrow { color: var(--purple); font-weight: 600; margin-bottom: 12px; letter-spacing: .3px; }
+    h1 { font-size: clamp(38px, 4vw, 54px); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+    h1 span { color: var(--purple); }
+    .hero-copy { color: var(--muted); font-size: 18px; max-width: 520px; margin-bottom: 26px; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-art { min-width: 0; }
+    .hero-art svg { width: 100%; height: auto; display: block; }
+
+    .section { padding: 28px 0 22px; }
+    .section-heading { text-align: center; margin-bottom: 25px; }
+    .section-heading h2 { font-size: 30px; letter-spacing: -.7px; margin-bottom: 5px; }
+    .section-heading p { color: var(--muted); }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .feature-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(35, 30, 90, .025);
+    }
+    .feature-icon {
+      flex: 0 0 60px; width: 60px; height: 60px;
+      display: grid; place-items: center; border-radius: 50%;
+      font-size: 27px; background: #eee9ff; color: var(--purple);
+    }
+    .feature-card:nth-child(2) .feature-icon { background: #d9f6ef; color: #188b7c; }
+    .feature-card:nth-child(3) .feature-icon { background: #fff0c9; color: #bd8718; }
+    .feature-card h3 { font-size: 17px; color: #354b9d; margin: 2px 0 8px; }
+    .feature-card p { color: var(--muted); font-size: 14px; }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: #f3f1ff; border-radius: 12px; margin: 22px 0;
+      padding: 16px 10px;
+    }
+    .stat { text-align: center; padding: 0 12px; border-right: 1px solid #c9c1f3; }
+    .stat:last-child { border-right: 0; }
+    .stat strong { display: block; color: var(--purple); font-size: 29px; line-height: 1.2; }
+    .stat span { font-size: 14px; color: #4f5470; }
+
+    footer { background: #17183f; color: #fff; margin-top: 0; }
+    .footer-main { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 23px 0; }
+    .footer-brand .brand { font-size: 25px; }
+    .footer-brand p { color: #c6c7dc; font-size: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 27px; font-size: 13px; }
+    .footer-links a:hover { color: #c5b6ff; }
+    .socials { display: flex; gap: 16px; color: #fff; font-weight: 700; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding: 12px 0 18px; display: flex; justify-content: space-between;
+      gap: 20px; color: #c6c7dc; font-size: 12px;
+    }
+    .footer-bottom div { display: flex; gap: 20px; }
+    .notice { text-align: center; padding: 12px; color: var(--purple); font-size: 14px; display: none; }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 18px; }
+      .nav-actions { gap: 12px; }
+      .hero-inner { grid-template-columns: 1fr 1fr; gap: 18px; }
+      .hero-copy { font-size: 16px; }
+      .features { gap: 14px; }
+      .feature-card { flex-direction: column; gap: 12px; padding: 17px; }
+      .footer-main { flex-wrap: wrap; }
+    }
+    @media (max-width: 680px) {
+      .navbar { min-height: 68px; }
+      .brand { font-size: 24px; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; z-index: 10; top: 68px; left: 5%; right: 5%;
+        padding: 18px; background: white; border: 1px solid var(--border);
+        border-radius: 12px; box-shadow: 0 12px 28px rgba(20,20,60,.12);
+        flex-direction: column; align-items: stretch; gap: 14px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-actions .login { display: none; }
+      .hero { padding: 36px 0 28px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      h1 { font-size: 39px; }
+      .hero-copy { font-size: 16px; }
+      .hero-art { max-width: 520px; margin: 0 auto; }
+      .section { padding-top: 26px; }
+      .section-heading h2 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .feature-card { flex-direction: row; }
+      .stats { grid-template-columns: repeat(2, 1fr); row-gap: 16px; }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(3) { border-right: 1px solid #c9c1f3; }
+      .footer-main { flex-direction: column; align-items: flex-start; }
+      .footer-links { gap: 16px; }
+      .footer-bottom { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container navbar">
+    <a class="brand" href="#home" aria-label="Learnify home">
+      <span class="brand-mark">🎓</span><span>Learnify</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a class="active" href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="login" href="#login">Login</a>
+      <a class="btn btn-primary btn-small" href="#signup">Sign Up</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Learn&nbsp; • &nbsp;Practice&nbsp; • &nbsp;Grow</p>
+          <h1>Your Learning<br>Journey <span>Starts Here</span></h1>
+          <p class="hero-copy">Learnify is your all-in-one platform to learn new skills, explore courses and build a better future. Study at your own pace, anytime, anywhere.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#courses">Explore Courses&nbsp; →</a>
+            <a class="btn btn-outline" href="#signup">Get Started</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Illustration of online learning">
+          <svg viewBox="0 0 680 420" role="img" aria-label="Laptop with graduation cap, books, and learning cards">
+            <defs>
+              <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8662ff"/><stop offset="1" stop-color="#6039dc"/>
+              </linearGradient>
+              <linearGradient id="book" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#9b80ff"/><stop offset="1" stop-color="#5d3bd6"/>
+              </linearGradient>
+            </defs>
+            <path d="M72 260 C35 178 107 123 189 140 C250 65 360 70 402 122 C495 80 618 140 596 245 C650 302 575 359 477 347 L170 347 C99 351 48 321 72 260Z" fill="#e7e0ff"/>
+            <ellipse cx="350" cy="360" rx="245" ry="23" fill="#d5ccff"/>
+            <!-- books -->
+            <g transform="translate(78 267) rotate(-8)">
+              <rect x="0" y="48" width="190" height="34" rx="8" fill="#e8a92e"/>
+              <rect x="0" y="16" width="190" height="34" rx="8" fill="#6b45e5"/>
+              <rect x="0" y="-16" width="190" height="34" rx="8" fill="url(#book)"/>
+              <path d="M15 -11 V12 M15 21 V44 M15 53 V76" stroke="#c8b7ff" stroke-width="4"/>
+            </g>
+            <!-- laptop -->
+            <g>
+              <rect x="266" y="112" width="280" height="202" rx="20" fill="#24215d"/>
+              <rect x="278" y="124" width="256" height="178" rx="12" fill="url(#screen)"/>
+              <path d="M237 314 H574 L603 338 Q608 348 591 350 H220 Q204 348 213 337Z" fill="#6b58cb"/>
+              <path d="M280 319 H535 L552 334 H264Z" fill="#a99af0"/>
+              <!-- graduation cap -->
+              <path d="M325 202 L405 168 L487 202 L406 237Z" fill="#fff"/>
+              <path d="M355 215 V247 Q405 276 455 247 V215 L405 236Z" fill="#f4f1ff"/>
+              <path d="M487 202 V244" stroke="#ffdc70" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="487" cy="248" r="8" fill="#ffdc70"/>
+            </g>
+            <!-- floating info cards -->
+            <g transform="translate(330 35)">
+              <rect width="155" height="65" rx="18" fill="#7048e6"/>
+              <circle cx="31" cy="32" r="17" fill="none" stroke="#fff" stroke-width="3"/>
+              <path d="M31 21 V33 L40 38" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <text x="57" y="27" font-size="15" font-weight="700" fill="#fff">Learn</text>
+              <text x="57" y="45" font-size="15" font-weight="700" fill="#fff">Anytime</text>
+            </g>
+            <g transform="translate(500 96)">
+              <rect width="145" height="62" rx="17" fill="#38b99b"/>
+              <text x="20" y="25" font-size="14" font-weight="700" fill="#fff">Build Your</text>
+              <text x="20" y="43" font-size="14" font-weight="700" fill="#fff">Skills</text>
+              <path d="M18 18 L28 8 L37 14 L48 3" fill="none" stroke="#fff" stroke-width="2"/>
+            </g>
+            <g transform="translate(518 190)">
+              <rect width="137" height="62" rx="17" fill="#f5bd45"/>
+              <text x="20" y="25" font-size="14" font-weight="700" fill="#fff">Achieve</text>
+              <text x="20" y="43" font-size="14" font-weight="700" fill="#fff">Your Goals</text>
+            </g>
+            <g transform="translate(120 145)">
+              <rect width="112" height="82" rx="13" fill="#fff"/>
+              <circle cx="29" cy="27" r="17" fill="#6842df"/>
+              <path d="M25 18 L37 27 L25 36Z" fill="#fff"/>
+              <rect x="52" y="18" width="46" height="7" rx="3" fill="#b8a9f5"/>
+              <rect x="52" y="31" width="38" height="7" rx="3" fill="#d7cffb"/>
+              <rect x="15" y="55" width="82" height="7" rx="3" fill="#d7cffb"/>
+            </g>
+            <!-- plant -->
+            <g transform="translate(605 280)">
+              <path d="M0 0 Q-30 -55 -50 -32 Q-46 -4 0 0 Q-10 -60 20 -68 Q43 -43 0 0 Q45 -35 58 -10 Q46 15 0 0" fill="#54c5a5"/>
+              <path d="M-18 0 H18 L12 66 H-12Z" fill="#6842df"/>
+              <path d="M-12 14 H12" stroke="#a997f7" stroke-width="4"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="features">
+      <div class="section-heading">
+        <h2>Why Choose Learnify?</h2>
+        <p>We make learning simple, flexible and effective for everyone.</p>
+      </div>
+      <div class="features" id="courses">
+        <article class="feature-card">
+          <div class="feature-icon">♧</div>
+          <div>
+            <h3>Wide Range of Courses</h3>
+            <p>From programming to design, find courses that match your goals.</p>
+          </div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">◷</div>
+          <div>
+            <h3>Learn at Your Own Pace</h3>
+            <p>Access materials anytime, anywhere and learn on your schedule.</p>
+          </div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">★</div>
+          <div>
+            <h3>Get Certified</h3>
+            <p>Showcase your skills with industry-recognized certificates.</p>
+          </div>
+        </article>
+      </div>
+      <div class="stats" id="about">
+        <div class="stat"><strong>10K+</strong><span>Active Learners</span></div>
+        <div class="stat"><strong>500+</strong><span>Courses Available</span></div>
+        <div class="stat"><strong>95%</strong><span>Satisfaction Rate</span></div>
+        <div class="stat"><strong>50+</strong><span>Expert Instructors</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#home"><span class="brand-mark">🎓</span><span>Learnify</span></a>
+          <p>Learn Today, Build Tomorrow</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#home">Home</a><a href="#courses">Courses</a><a href="#about">About</a>
+          <a href="#features">Features</a><a href="#contact">Contact</a>
+        </nav>
+        <div class="socials" aria-label="Social media">f&nbsp; ◎&nbsp; ▶&nbsp; in</div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Learnify. All rights reserved.</span>
+        <div><a href="#privacy">Privacy Policy</a><a href="#terms">Terms &amp; Conditions</a></div>
+      </div>
+    </div>
+  </footer>
+  <p class="notice" id="notice" role="status"></p>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", navLinks.classList.contains("open"));
+    });
+
+    // Close the mobile menu after selecting a navigation link.
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => navLinks.classList.remove("open"));
+    });
+
+    // Demo feedback for account buttons (no backend/login system connected).
+    document.querySelectorAll('a[href="#signup"], a[href="#login"]').forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        const notice = document.getElementById("notice");
+        notice.textContent = "This is a front-end demo. Login and sign-up need a backend to work.";
+        notice.style.display = "block";
+        notice.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+  </script>
+</body>
+</html>
